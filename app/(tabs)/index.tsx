@@ -1,98 +1,123 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+class App extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      textoFrase: '', 
+      // img inicial do biscoito fechado
+      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' } 
+    };
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    this.frases = [
+      'A vida trará coisas boas se tiver paciência.',
+      'Demonstre amor e alegria em todas as oportunidades.',
+      'Não compense na ira o que lhe falta na razão.',
+      'Defeitos e virtudes são apenas dois lados da mesma moeda.',
+      'A maior de todas as torres começa no solo.',
+      'Não há que ser forte. Há que ser flexível.',
+      'Gente todo dia arruma os cabelos, por que não o coração?',
+      'A sorte favorece a mente preparada.'
+    ];
+
+    this.quebrarBiscoito = this.quebrarBiscoito.bind(this);
+    this.reiniciarBiscoito = this.reiniciarBiscoito.bind(this);
+  }
+
+  quebrarBiscoito() {
+    let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+
+    this.setState({
+      textoFrase: `"${this.frases[numeroAleatorio]}"`,
+      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoitoAberto.png' }
+    });
+  }
+
+  reiniciarBiscoito() {
+    this.setState({
+      textoFrase: '', 
+      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' } // Retorna a imagem fechada
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        
+        {}
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={this.state.imgBiscoito}
+          style={styles.img}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+        {}
+        <Text style={styles.textoFrase}>{this.state.textoFrase}</Text>
+
+        {}
+        <TouchableOpacity style={styles.botao} onPress={this.quebrarBiscoito}>
+          <View style={styles.btnArea}>
+            <Text style={styles.btnTexto}>Quebrar Biscoito</Text>
+          </View>
+        </TouchableOpacity>
+
+        {}
+        <TouchableOpacity style={[styles.botao, styles.botaoReiniciar]} onPress={this.reiniciarBiscoito}>
+          <View style={styles.btnArea}>
+            <Text style={[styles.btnTexto, styles.btnTextoReiniciar]}>Reiniciar</Text>
+          </View>
+        </TouchableOpacity>
+
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    backgroundColor: '#F5F5DC'
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  img: {
+    width: 250,
+    height: 250,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  textoFrase: {
+    fontSize: 20,
+    color: '#DD7B22',
+    margin: 30,
+    fontStyle: 'italic',
+    textAlign: 'center'
   },
+  botao: {
+    width: 230,
+    height: 50,
+    borderWidth: 2,
+    borderColor: '#DD7B22',
+    borderRadius: 25,
+    marginTop: 10
+  },
+  btnArea: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btnTexto: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#DD7B22'
+  },
+  botaoReiniciar: {
+    borderColor: '#333333',
+    marginTop: 15
+  },
+  btnTextoReiniciar: {
+    color: '#333333'
+  }
 });
+
+export default App;
