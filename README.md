@@ -1,29 +1,49 @@
 # App Biscoito da Sorte
 
-Atividade avaliativa da disciplina de Dispositiveis Moveis.
+Uma aplicação mobile desenvolvida em **React Native** com **Expo** e **TypeScript** para ler frases de sorte de um biscoito interativo.
 
-## Como executar o projeto
+**Atividade avaliativa** da disciplina de **Dispositivos Móveis** - IFPR Cascavel.
 
-1. Clone este repositório no seu computador:
+---
+
+## Como Executar
+
+### Pré-requisitos
+
+- **Node.js** (v16 ou superior)
+- **npm** ou **yarn**
+- **Expo CLI** (opcional, recomendado para testes avançados)
+
+### Instalação e Execução
+
+1. **Clone este repositório:**
 
    ```bash
-   git clone [https://github.com/BertazzGus/meu-projeto-biscoito.git](https://github.com/BertazzGus/meu-projeto-biscoito.git)
+   git clone https://github.com/BertazzGus/meu-projeto-biscoito.git
+   cd meu-projeto-biscoito
    ```
 
-2. Acesse a pasta do projeto:
+2. **Instale as dependências:**
 
-    ```bash
-    cd meu-projeto-biscoito
-    ```
+   ```bash
+   npm install
+   ```
 
-3. Instale as dependências:
+3. **Inicie o projeto:**
 
-    ```base
-    npm install
-    ```
+   ```bash
+   npm start
+   ```
 
-4. Execute o projeto:
+4. **Escolha uma plataforma:**
 
-    ```bash
-    npx expo start
-    ```
+   - **Web** (Recomendado): Pressione `w` → Abre em http://localhost:8081
+   - **Android**: Pressione `a` → Requer Android Studio/emulador
+   - **iOS**: Pressione `i` → Requer Xcode (apenas macOS)
+   - **Expo Go (Celular)**: Escaneia o QR Code com app "Expo Go"
+
+---
+
+## Licença
+
+Este projeto é de uso educacional para a disciplina de Dispositivos Móveis.

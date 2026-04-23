@@ -1,74 +1,69 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
 
-class App extends Component {
-  constructor(props) {
+interface AppState {
+  textoFrase: string;
+  imgBiscoito: ImageSourcePropType;
+}
+
+class App extends Component<{}, AppState> {
+  private frases: string[] = [
+    'A vida trará coisas boas se tiver paciência.',
+    'Demonstre amor e alegria em todas as oportunidades.',
+    'Não compense na ira o que lhe falta na razão.',
+    'Defeitos e virtudes são apenas dois lados da mesma moeda.',
+    'A maior de todas as torres começa no solo.',
+    'Não há que ser forte. Há que ser flexível.',
+    'Gente todo dia arruma os cabelos, por que não o coração?',
+    'A sorte favorece a mente preparada.'
+  ];
+
+  constructor(props: {}) {
     super(props);
-    
+
     this.state = {
-      textoFrase: '', 
-      // img inicial do biscoito fechado
-      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' } 
+      textoFrase: '',
+      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' }
     };
-
-    this.frases = [
-      'A vida trará coisas boas se tiver paciência.',
-      'Demonstre amor e alegria em todas as oportunidades.',
-      'Não compense na ira o que lhe falta na razão.',
-      'Defeitos e virtudes são apenas dois lados da mesma moeda.',
-      'A maior de todas as torres começa no solo.',
-      'Não há que ser forte. Há que ser flexível.',
-      'Gente todo dia arruma os cabelos, por que não o coração?',
-      'A sorte favorece a mente preparada.'
-    ];
-
-    this.quebrarBiscoito = this.quebrarBiscoito.bind(this);
-    this.reiniciarBiscoito = this.reiniciarBiscoito.bind(this);
   }
 
-  quebrarBiscoito() {
-    let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+  quebrarBiscoito = () => {
+    const numeroAleatorio = Math.floor(Math.random() * this.frases.length);
 
     this.setState({
       textoFrase: `"${this.frases[numeroAleatorio]}"`,
       imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoitoAberto.png' }
     });
-  }
+  };
 
-  reiniciarBiscoito() {
+  reiniciarBiscoito = () => {
     this.setState({
-      textoFrase: '', 
-      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' } // Retorna a imagem fechada
+      textoFrase: '',
+      imgBiscoito: { uri: 'https://raw.githubusercontent.com/sujeitoprogramador/biscoito-app/master/src/biscoito.png' }
     });
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        
-        {}
         <Image
           source={this.state.imgBiscoito}
           style={styles.img}
         />
 
-        {}
         <Text style={styles.textoFrase}>{this.state.textoFrase}</Text>
 
-        {}
         <TouchableOpacity style={styles.botao} onPress={this.quebrarBiscoito}>
           <View style={styles.btnArea}>
             <Text style={styles.btnTexto}>Quebrar Biscoito</Text>
           </View>
         </TouchableOpacity>
 
-        {}
         <TouchableOpacity style={[styles.botao, styles.botaoReiniciar]} onPress={this.reiniciarBiscoito}>
           <View style={styles.btnArea}>
             <Text style={[styles.btnTexto, styles.btnTextoReiniciar]}>Reiniciar</Text>
           </View>
         </TouchableOpacity>
-
       </View>
     );
   }
